@@ -1,4 +1,6 @@
+<div>
 <img align="right" src="https://github.com/lpm0073/edx.scripts/blob/master/img/open-edx-logo.png">
+</div>
 
 # edx.scripts
 
