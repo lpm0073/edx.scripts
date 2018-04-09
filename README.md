@@ -1,3 +1,4 @@
+![Open edX Logo](https://github.com/lpm0073/edx.scripts/blob/master/img/open-edx-logo.png "Open edX Logo")
 # edx.scripts
 
 This repository contains fully documented and parameterized bash script that are intended to help you fill in the blanks on basic Open edX system administration and devops tasks. You'll find complete how-to guides for each of these scripts [on my personal blog](https://blog.lawrencemcdaniel.com/)
