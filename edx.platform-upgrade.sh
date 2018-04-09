@@ -4,6 +4,8 @@
 # April 2018
 #
 # Usage:     To upgrade an existing Native Open edX Ubuntu 16.04 64 bit Installation.
+#            This upgrade is based on the original Native installation Ansible Playbook.
+#
 #            This script takes about an hour to run. I STRONGLY recommend that you monitor
 #            its progress as it runs.
 #
@@ -22,6 +24,14 @@
 #           This is a large code base in excess of 5Gb. You should verify that the disk volume
 #           on your EC2 Ubuntu instance has sufficient available space before attempting to run
 #           this script!
+#
+# CRITICALLY IMPORTANT NOTE 3:
+#           a.) This upgrade script will overwrite/replace your nginx virtual server files. if
+#           you've modified your nginx configuration for any reason such as to create a proper sub-domain
+#           for studio, or to add https then these modifications will be OVERWRITTEN.
+#
+#           b.) This upgrade script overwrite all four of the configuration json files in /edx/app/edxapp/.
+#           However, this script creates backups of these files, which are stored in the same folder.
 #
 # Reference: https://openedx.atlassian.net/wiki/spaces/OpenOPS/pages/60227913/Managing+OpenEdX+Tips+and+Tricks
 #---------------------------------------------------------
@@ -47,8 +57,26 @@ sudo /edx/bin/supervisorctl stop xqueue
 sudo /edx/bin/supervisorctl stop xqueue_consumer
 
 # Step 2: backup the existing environment.
+#         You'll need this backup if you've modified any of the source code.
+#         Note that you code modifications will NOT be present in the completed upgrade.
+#
+#         The backups of edxapp_env, venvs and nodeenvs are probably not really necesary.
+#         It is safe to delete these three backup folders at any time.
 
 echo "Backing up /edx/app/edxapp/edx-platform/"
+if [ -f /edx/app/edxapp/cms.auth.json ]; then
+  sudo cp /edx/app/edxapp/cms.auth.json /edx/app/edxapp/cms.auth.json-BACKUP-${NOW}
+fi
+if [ -f /edx/app/edxapp/cms.env.json ]; then
+  sudo cp /edx/app/edxapp/cms.env.json /edx/app/edxapp/cms.env.json-BACKUP-${NOW}
+fi
+if [ -f /edx/app/edxapp/lms.auth.json ]; then
+  sudo cp /edx/app/edxapp/lms.auth.json /edx/app/edxapp/lms.auth.json-BACKUP-${NOW}
+fi
+if [ -f /edx/app/edxapp/lms.env.json ]; then
+  sudo cp /edx/app/edxapp/lms.env.json /edx/app/edxapp/lms.env.json-BACKUP-${NOW}
+fi
+
 if [ -d /edx/app/edxapp/edx-platform/ ]; then
   sudo mv /edx/app/edxapp/edx-platform/ /edx/app/edxapp/edx-platform-BACKUP-${NOW}
 fi
@@ -67,5 +95,12 @@ fi
 
 
 
-# Step 3: Perform the upgrade
+# Step 3: Perform the upgrade. This steps takes a VERY long time. Plan on at least
+#         45 minutes of waiting around, reading occasional screen output, and drinking lots of coffee.
+#
+#         A couple of steps in particular are big, and slow:
+#         - cloning the git repository of edx-platform takes around 5 minutes
+#         - rebuilding the pip Python virtual environemnt takes around 10 minutes
+#         - rebuilding the Node environment takes around 10 minutes
+#         - Compiling Static Assets takes around 15 minutes and generates a lot of deprecation messages (which is ok).
 sudo /edx/bin/update edx-platform ${OPENEDX_RELEASE}
