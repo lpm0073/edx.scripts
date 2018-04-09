@@ -10,6 +10,7 @@
 #
 # This script takes around 2 hours to complete. It is intended to be run unattended, on a background thread using
 # nohup.
+#---------------------------------------------------------
 
 
 cd ~
@@ -41,8 +42,9 @@ export LC_CTYPE="en_US.UTF-8"
 
 
 # 1. Set the OPENEDX_RELEASE variable:
-#export OPENEDX_RELEASE=open-release/ginkgo.1
-# Note: there are several small but really important bug fixes since the ginkgo.1 named release. i'm setting the releast to master (ie the most recent stable release) for the time being.
+#export OPENEDX_RELEASE=open-release/ginkgo.2
+# Note: sometimes there are important bug fixes in master that are not included in the named releases.
+#       to date i've always had the best luck with master.
 export OPENEDX_RELEASE=master
 
 
