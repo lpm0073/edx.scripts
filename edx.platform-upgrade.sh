@@ -9,11 +9,11 @@
 #            This script takes about an hour to run. I STRONGLY recommend that you monitor
 #            its progress as it runs.
 #
-#            When attemping Open edX upgrades I've often struggled with subsystem version nuances.
+#            When attemping Open edX upgrades have problems with subsystem version nuances.
 #            The most problematic in my experience are Python pip packages, and pip itself. To
-#            attempt to mitigate this problem I prefer to completely delete the existing virtual
-#            environments for both Python and Node. The upgrade scripts will automatically rebuild
-#            these virtual environments for you using the current recommended versions of each package.
+#            attempt to mitigate this problem this script deletes the existing virtual
+#            environments for both Python and Node. The Ansible playbooks will automatically rebuild
+#            these using the current recommended versions of each package.
 #
 # CRITICALLY IMPORTANT NOTE 1:
 #           before attempting this script you should completely backup your server
@@ -30,7 +30,7 @@
 #           you've modified your nginx configuration for any reason such as to create a proper sub-domain
 #           for studio, or to add https then these modifications will be OVERWRITTEN.
 #
-#           b.) This upgrade script overwrite all four of the configuration json files in /edx/app/edxapp/.
+#           b.) This upgrade script overwrites all four of the configuration json files in /edx/app/edxapp/.
 #           However, this script creates backups of these files, which are stored in the same folder.
 #
 # Reference: https://openedx.atlassian.net/wiki/spaces/OpenOPS/pages/60227913/Managing+OpenEdX+Tips+and+Tricks
@@ -98,7 +98,7 @@ fi
 # Step 3: Perform the upgrade. This steps takes a VERY long time. Plan on at least
 #         45 minutes of waiting around, reading occasional screen output, and drinking lots of coffee.
 #
-#         A couple of steps in particular are big, and slow:
+#         A few steps in particular are big, and slow:
 #         - cloning the git repository of edx-platform takes around 5 minutes
 #         - rebuilding the pip Python virtual environemnt takes around 10 minutes
 #         - rebuilding the Node environment takes around 10 minutes

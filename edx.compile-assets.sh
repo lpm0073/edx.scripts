@@ -15,6 +15,9 @@
 #             locations in the code base folder structure to the Nginx locations for hosting purposes.
 #             files also pickup codified suffixes as part of this process.
 #
+# NOTE:       This script initiates the asset compilation process, which takes around 10 minutes to complete.
+#             Your Open edX platform will be unavailable during the compilation process.
+#
 # reference:  https://openedx.atlassian.net/wiki/spaces/OpenOPS/pages/60227913/Managing+OpenEdX+Tips+and+Tricks
 #---------------------------------------------------------
 
