@@ -1,4 +1,4 @@
-<p align="right">
+<p align="center">
   <img src="https://github.com/lpm0073/edx.scripts/blob/master/img/open-edx-logo.png">
 </p>
 
