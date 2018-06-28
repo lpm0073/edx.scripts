@@ -6,7 +6,9 @@
 #
 # date:       feb-2018
 #
-# usage:      Compile Open edX static assets.
+# usage:      Compile Open edX static assets. See http://edx.readthedocs.io/projects/edx-developer-guide/en/latest/pavelib.html
+#             Compiles Coffeescript, Sass, and Xmodule assets, and runs Django's collectstatic.
+#
 #             This process is required any time you change your custom theme, or if you Add
 #             new static assets (like images, pdf documents, custom CSS / JS) to an existing theme.
 #
@@ -31,4 +33,6 @@ EOF
 
 # restart edx instances
 sudo /edx/bin/supervisorctl restart edxapp:
+/edx/bin/supervisorctl restart lms
+/edx/bin/supervisorctl restart cms
 /edx/bin/supervisorctl restart edxapp_worker:
