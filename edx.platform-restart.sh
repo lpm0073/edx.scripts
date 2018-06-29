@@ -12,6 +12,11 @@
 #---------------------------------------------------------
 
 
+# These are the commands for restarting the LMS and CMS beginning with Gingko
 /edx/bin/supervisorctl restart lms
 /edx/bin/supervisorctl restart cms
+
+# If you're running a previous version of Open edX then use this command instead
+#/edx/bin/supervisorctl restart edxapp:
+
 /edx/bin/supervisorctl restart edxapp_worker:
