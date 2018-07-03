@@ -50,7 +50,7 @@ export OPENEDX_RELEASE=master
 
 
 # 2. Bootstrap the Ansible installation:
-wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/ansible-bootstrap.sh -O - | sudo bash
+wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/ansible-bootstrap.sh -O - | sudo -H bash
 
 # 3. (Optional) If this is a new installation, randomize the passwords:
 wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/generate-passwords.sh -O - | bash
