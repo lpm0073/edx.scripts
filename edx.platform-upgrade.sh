@@ -41,7 +41,9 @@ NOW="$(date +%Y%m%dT%H%M%S)"
 export OPENEDX_RELEASE=master
 
 # Step 1: Completely shut down all edX services
-sudo /edx/bin/supervisorctl stop edxapp:
+sudo /edx/bin/supervisorctl stop edxapp:          # for edX platform prior to Ginkgo
+sudo /edx/bin/supervisorctl stop lms              # for Ginko and after
+sudo /edx/bin/supervisorctl stop lms              # for Ginkgo and after
 sudo /edx/bin/supervisorctl stop edxapp_worker:
 
 sudo /edx/bin/supervisorctl stop analytics_api
@@ -95,7 +97,7 @@ fi
 
 
 
-# Step 3: Perform the upgrade. This steps takes a VERY long time. Plan on at least
+# Step 3: Perform the upgrade. This step takes a VERY long time. Plan on at least
 #         45 minutes of waiting around, reading occasional screen output, and drinking lots of coffee.
 #
 #         A few steps in particular are big, and slow:
@@ -104,3 +106,14 @@ fi
 #         - rebuilding the Node environment takes around 10 minutes
 #         - Compiling Static Assets takes around 15 minutes and generates a lot of deprecation messages (which is ok).
 sudo /edx/bin/update edx-platform ${OPENEDX_RELEASE}
+
+# I sometimes run into problems with version impcompatabilities during upgrades, especially wth Pip and Python in general.
+# In general i've had better success changing my strategy to re-installation than by trying to trouble-shoot the idividual
+# problem. Here is the command that you would use if you want to re-install the software rather than update:
+
+#https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/native.sh 
+#sudo chmod 755 native.#!/bin/sh
+# HEADS UP! -- you need to edit this script, and set the following variable
+#                     OPENEDX_RELEASE="master"
+#
+#sudo ./native.sh
