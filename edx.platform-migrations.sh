@@ -8,13 +8,13 @@
 # Reference: https://openedx.atlassian.net/wiki/spaces/OpenOPS/pages/60227913/Managing+OpenEdX+Tips+and+Tricks
 #---------------------------------------------------------
 
-sudo su edxapp -s /bin/bash
+sudo -H -u edxapp -s bash << EOF
 cd ~
-source edxapp_env
+source /edx/app/edxapp/edxapp_env
 
 python /edx/app/edxapp/edx-platform/manage.py lms makemigrations --settings=aws
 python /edx/app/edxapp/edx-platform/manage.py lms migrate --settings=aws
 
 python /edx/app/edxapp/edx-platform/manage.py cms makemigrations --settings=aws
 python /edx/app/edxapp/edx-platform/manage.py cms migrate --settings=aws
-exit
+EOF
