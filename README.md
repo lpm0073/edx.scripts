@@ -4,7 +4,7 @@
 
 # edx.scripts
 
-This repository contains fully documented and parameterized bash scripts that are intended to help you fill in the blanks on basic Open edX system administration and devops tasks. You'll find complete how-to guides for each of these scripts [on my personal blog](https://blog.lawrencemcdaniel.com/)
+This repository contains fully documented and parameterized bash scripts that are intended to help you fill in the blanks on basic Open edX system administration and devops tasks. You'll find complete how-to guides for each of these scripts [on my personal blog](https://blog.lawrencemcdaniel.com/). More specifically, you might want refer to [this troubleshooting guide](https://blog.lawrencemcdaniel.com/open-edx-trouble-shooting-guide/) in the event of any problems. 
 
 ## Scripts Included
 
