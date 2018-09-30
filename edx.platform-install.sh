@@ -45,7 +45,7 @@ export LC_CTYPE="en_US.UTF-8"
 #export OPENEDX_RELEASE=open-release/ginkgo.2
 # Note: sometimes there are important bug fixes in master that are not included in the named releases.
 #       to date i've always had the best luck with master.
-export OPENEDX_RELEASE=master
+export OPENEDX_RELEASE=open-release/hawthorn.master
 
 
 
