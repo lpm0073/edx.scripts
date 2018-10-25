@@ -17,6 +17,34 @@
 #             locations in the code base folder structure to the Nginx locations for hosting purposes.
 #             files also pickup codified suffixes as part of this process.
 #
+#             Note: if you're planning to modify any of the Sass files for LMS or CMS then
+#                   Following are some important variations to the command line arguments that you'll definitely want to know.
+#
+#              Command:
+#                  paver compile_sass
+#              Description:
+#                  compile sass files for both lms and cms. If command is called like above (i.e. without any arguments) it will
+#                  only compile lms, cms sass for the open source theme. None of the theme's sass will be compiled.
+#
+#              Command:
+#                  paver compile_sass --theme-dirs /edx/app/edxapp/edx-platform/themes --themes=red-theme
+#              Description:
+#                  compile sass files for both lms and cms for 'red-theme' present in '/edx/app/edxapp/edx-platform/themes'
+#
+#              Command:
+#                  paver compile_sass --theme-dirs=/edx/app/edxapp/edx-platform/themes --themes red-theme stanford-style
+#              Description:
+#                  compile sass files for both lms and cms for 'red-theme' and 'stanford-style' present in
+#                  '/edx/app/edxapp/edx-platform/themes'.
+#
+#              Command:
+#                  paver compile_sass --system=cms
+#                      --theme-dirs /edx/app/edxapp/edx-platform/themes /edx/app/edxapp/edx-platform/common/test/
+#                      --themes red-theme stanford-style test-theme
+#              Description:
+#                  compile sass files for cms only for 'red-theme', 'stanford-style' and 'test-theme' present in
+#                  '/edx/app/edxapp/edx-platform/themes' and '/edx/app/edxapp/edx-platform/common/test/'.
+#
 # NOTE:       This script initiates the asset compilation process, which takes around 10 minutes to complete.
 #             Your Open edX platform will be unavailable during the compilation process.
 #
@@ -27,8 +55,8 @@
 sudo -H -u edxapp bash << EOF
 source /edx/app/edxapp/edxapp_env
 cd /edx/app/edxapp/edx-platform
-paver update_assets lms --settings=aws
-paver update_assets cms --settings=aws
+paver update_assets lms settings=production
+paver update_assets cms settings=production
 EOF
 
 # restart edx instances

@@ -14,7 +14,6 @@ source /edx/app/edxapp/edxapp_env
 
 python /edx/app/edxapp/edx-platform/manage.py lms makemigrations --settings=aws
 python /edx/app/edxapp/edx-platform/manage.py lms migrate --settings=aws
-
 python /edx/app/edxapp/edx-platform/manage.py cms makemigrations --settings=aws
 python /edx/app/edxapp/edx-platform/manage.py cms migrate --settings=aws
 EOF
