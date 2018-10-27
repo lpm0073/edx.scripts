@@ -25,6 +25,7 @@
 
 if [ $# -ne 1 ]; then
     echo "Usage: edx.update-language.sh [Open edX Language Code]"
+    echo "[Open edX Language Code] - You'll find a list of language codes in: /edx/app/edxapp/edx-platform/conf/locale/config.yaml"
 else
   echo "Updating language" $1
 
