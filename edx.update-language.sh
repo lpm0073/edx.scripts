@@ -15,13 +15,16 @@
 #     http://learning.perpetualny.com/blog/multi-language-support-on-open-edx
 #---------------------------------------------------------
 
+
+if [ $# -ne 1 ]; then
+    echo "Usage: edx.update-language.sh [Open edX Language Code]"
+else
+  echo "Updating language" $1
+
 sudo -H -u edxapp bash << EOF
 source /edx/app/edxapp/edxapp_env
 cd /edx/app/edxapp/edx-platform
-
-paver i18n_robot_pull
-
-# it's unlikely that you need this, but leaving it here just in case.
-#paver i18n_fastgenerate
-#
+tx pull -l $1
 EOF
+
+fi
