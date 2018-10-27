@@ -15,6 +15,11 @@
 # reference:
 #     https://github.com/edx/edx-platform/wiki/Internationalization-and-localization
 #     http://learning.perpetualny.com/blog/multi-language-support-on-open-edx
+#
+# Notes:
+#     if you get an error like, "The program 'tx' is currently not installed. To run 'tx' please ask your administrator to install the package 'transifex-client'"
+#     then you need to install "tx" the transifex-client:
+#     $ sudo pip install transifex-client
 #---------------------------------------------------------
 
 
