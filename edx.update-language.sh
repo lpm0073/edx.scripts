@@ -9,6 +9,8 @@
 # usage:      (if your site is in English then you definitely do not need this script)
 #             Download and install Transifex language translation files.
 #
+# parameters:
+#           [Open edX Language Code] - You'll find a list of language codes in: /edx/app/edxapp/edx-platform/conf/locale/config.yaml
 #
 # reference:
 #     https://github.com/edx/edx-platform/wiki/Internationalization-and-localization
