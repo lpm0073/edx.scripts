@@ -29,7 +29,8 @@
 
 #Install Docker: https://docs.docker.com/install/linux/docker-ce/ubuntu/
 #================================
-sudo apt-get remove docker docker-engine docker.io containerd runc
+# this line looks for, and remove any existing installation of docker.
+#sudo apt-get remove docker docker-engine docker.io containerd runc
 sudo apt-get update
 sudo apt-get install -y \
     apt-transport-https \
