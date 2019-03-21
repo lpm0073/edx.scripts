@@ -21,7 +21,7 @@
 #      - Notes?
 #
 # Trouble Shooting:
-#     ~/.local/share/tutor/env/apps/openedx/
+#     /root/.local/share/tutor/env/apps/openedx/config
 #     tutor local logs nginx
 #---------------------------------------------------------
 
@@ -65,6 +65,9 @@ docker-compose --version
 sudo curl -L "https://github.com/regisb/tutor/releases/download/latest/tutor-$(uname -s)_$(uname -m)" -o /usr/local/bin/tutor
 sudo chmod +x /usr/local/bin/tutor
 
-sudo -H -u root bash << EOF
-tutor local quickstart
-EOF
+echo "===================================================================="
+echo
+echo
+echo "Finished. To continue type:"
+echo "'sudo su - $USER<enter>'"
+echo "'tutor local quickstart'"
