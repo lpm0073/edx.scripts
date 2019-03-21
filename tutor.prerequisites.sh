@@ -29,7 +29,7 @@
 #================================
 sudo apt-get remove docker docker-engine docker.io containerd runc
 sudo apt-get update
-sudo apt-get install \
+sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -44,14 +44,13 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo gpasswd -a $USER docker
 sudo usermod -a -G docker $USER
-sudo su - $USER
-
+sudo -H -u root bash << EOF
 # test Docker installation
 docker run hello-world
-
+EOF
 
 #Install Docker Composer: https://docs.docker.com/compose/install/
 #================================
@@ -66,4 +65,6 @@ docker-compose --version
 sudo curl -L "https://github.com/regisb/tutor/releases/download/latest/tutor-$(uname -s)_$(uname -m)" -o /usr/local/bin/tutor
 sudo chmod +x /usr/local/bin/tutor
 
-echo "Finished."
+sudo -H -u root bash << EOF
+tutor local quickstart
+EOF
