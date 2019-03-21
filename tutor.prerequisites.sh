@@ -16,6 +16,7 @@
 #
 #     Add your dns records!!!!
 #      - LMS
+#      - LMS preview
 #      - CMS
 #      - Notes?
 #
@@ -44,12 +45,12 @@ sudo add-apt-repository \
    stable"
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
-sudo gpasswd -a ubuntu docker
-sudo usermod -a -G docker ubuntu
-sudo service docker restart
+sudo gpasswd -a $USER docker
+sudo usermod -a -G docker $USER
+sudo su - $USER
 
 # test Docker installation
-sudo docker run hello-world
+docker run hello-world
 
 
 #Install Docker Composer: https://docs.docker.com/compose/install/
@@ -66,5 +67,3 @@ sudo curl -L "https://github.com/regisb/tutor/releases/download/latest/tutor-$(u
 sudo chmod +x /usr/local/bin/tutor
 
 echo "Finished."
-echo "You need to reboot."
-echo "Type 'sudo reboot'"
