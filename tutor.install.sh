@@ -7,18 +7,19 @@
 # date:       march 21, 2019
 #
 # usage:      Install Tutor prerequisites.
+#             wget raw.githubusercontent.com/lpm0073/edx.scripts/master/tutor.install.sh -O - | bash
 #
 # reference:  https://docs.tutor.overhang.io/quickstart.html
 #
 # Notes:
-#     AWS EC2 Ubuntu 16.04
-#     t2-large - 50gb ebs
+#     AWS EC2 | t2-large | 50gb ebs | Ubuntu 16.04
 #
-#     Add your dns records!!!!
-#      - LMS
-#      - LMS preview
-#      - CMS
-#      - Notes?
+#     Add dns records before your run this script. All of your dns records
+#     should be 'A' records and should point to the same IP address.
+#      - LMS:         tutor-lms.lawrencemcdaniel.com
+#      - LMS preview: preview.tutor-lms.lawrencemcdaniel.com
+#      - Notes:       notes.tutor-lms.lawrencemcdaniel.com
+#      - CMS:         tutor-studio.lawrencemcdaniel.com
 #
 # Trouble Shooting:
 #     ~/.local/share/tutor/env/apps/openedx/config
