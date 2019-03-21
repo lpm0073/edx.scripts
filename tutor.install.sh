@@ -21,7 +21,7 @@
 #      - Notes?
 #
 # Trouble Shooting:
-#     /root/.local/share/tutor/env/apps/openedx/config
+#     ~/.local/share/tutor/env/apps/openedx/config
 #     tutor local logs nginx
 #---------------------------------------------------------
 
