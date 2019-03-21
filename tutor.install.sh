@@ -6,7 +6,7 @@
 #
 # date:       march 21, 2019
 #
-# usage:      Install Tutor prerequisites.
+# usage:      Install Tutor and its prerequisites.
 #             wget raw.githubusercontent.com/lpm0073/edx.scripts/master/tutor.install.sh -O - | bash
 #
 # reference:  https://docs.tutor.overhang.io/quickstart.html
@@ -16,6 +16,7 @@
 #
 #     Add dns records before your run this script. All of your dns records
 #     should be 'A' records and should point to the same IP address.
+#      - Root:        tutor.lawrencemcdaniel.com
 #      - LMS:         tutor-lms.lawrencemcdaniel.com
 #      - LMS preview: preview.tutor-lms.lawrencemcdaniel.com
 #      - Notes:       notes.tutor-lms.lawrencemcdaniel.com
