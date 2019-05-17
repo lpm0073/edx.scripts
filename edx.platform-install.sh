@@ -41,7 +41,7 @@ export LC_CTYPE="en_US.UTF-8"
 #export OPENEDX_RELEASE=open-release/ginkgo.2
 # Note: sometimes there are important bug fixes in master that are not included in the named releases.
 #       to date i've always had the best luck with master.
-export OPENEDX_RELEASE=open-release/ironwood.master
+export OPENEDX_RELEASE=open-release/ginkgo.master
 
 # 2. Bootstrap the Ansible installation:
 wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/ansible-bootstrap.sh -O - | sudo -H bash
