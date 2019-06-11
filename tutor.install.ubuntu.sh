@@ -65,7 +65,7 @@ docker-compose --version
 
 #Install Tutor: https://docs.tutor.overhang.io/install.html
 #================================
-sudo curl -L "https://github.com/regisb/tutor/releases/download/latest/tutor-$(uname -s)_$(uname -m)" -o /usr/local/bin/tutor
+sudo curl -L "https://github.com/regisb/tutor/releases/download/v3.3.10/tutor-$(uname -s)_$(uname -m)" -o /usr/local/bin/tutor
 sudo chmod +x /usr/local/bin/tutor
 
 echo "===================================================================="
