@@ -1,5 +1,5 @@
 #!/bin/sh
-# Native Open edX Ubuntu 16.04 64 bit Installation
+# Native Open edX Ubuntu 20.04 64 bit Installation
 # McDaniel
 # October 2017
 #
@@ -38,7 +38,6 @@ export LC_CTYPE="en_US.UTF-8"
 #export LC_IDENTIFICATION=?~@~]es_ES.UTF-8?~@~]
 
 # 1. Set the OPENEDX_RELEASE variable:
-#export OPENEDX_RELEASE=open-release/ginkgo.2
 # Note: sometimes there are important bug fixes in master that are not included in the named releases.
 #       to date i've always had the best luck with master.
 export OPENEDX_RELEASE=open-release/koa.master
