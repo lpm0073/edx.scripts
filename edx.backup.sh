@@ -5,6 +5,7 @@
 #             https://blog.lawrencemcdaniel.com
 #
 # date:       feb-2018
+# modified:   jan-2021: create separate tarballs for mysql/mongo data
 #
 # usage:      backup MySQL and MongoDB data stores
 #             combine into a single tarball, store in "backups" folders in user directory
@@ -13,10 +14,10 @@
 #---------------------------------------------------------
 
 #------------------------------ SUPER IMPORTANT!!!!!!!! -- initialize these variables
-MYSQL_PWD="YOUR-STRONG-PASSWORD"      #Add your MySQL admin password, if one is set. Otherwise set to a null string
-MONGODB_PWD="YOUR-STRONG-PASSWORD"    #Add your MongoDB admin password from your my-passwords.yml file in the ubuntu home folder.
+MYSQL_PWD="COMMON_MYSQL_ADMIN_PASS FROM my-passwords.yml"     #Add your MySQL admin password, if one is set. Otherwise set to a null string
+MONGODB_PWD="MONGO_ADMIN_PASSWORD FROM my-passwords.yml"      #Add your MongoDB admin password from your my-passwords.yml file in the ubuntu home folder.
 
-S3_BUCKET="THE-NAME-OF-YOUR-AWS-S3-BUCKET"  #For this script to work you'll first need the following:
+S3_BUCKET="YOUR S3 BUCKET NAME"             # For this script to work you'll first need the following:
                                             # - create an AWS S3 Bucket
                                             # - create an AWS IAM user with programatic access and S3 Full Access privileges
                                             # - install AWS Command Line Tools in your Ubuntu EC2 instance
@@ -25,7 +26,14 @@ S3_BUCKET="THE-NAME-OF-YOUR-AWS-S3-BUCKET"  #For this script to work you'll firs
 
 BACKUPS_DIRECTORY="/home/ubuntu/backups/"
 WORKING_DIRECTORY="/home/ubuntu/backup-tmp/"
-NUMBER_OF_BACKUPS_TO_RETAIN="30"      #Note: this only regards local storage (ie on the ubuntu server). All backups are retained in the S3 bucket forever.
+NUMBER_OF_BACKUPS_TO_RETAIN="10"            # Note: this only regards local storage (ie on the ubuntu server). All backups are retained in the S3 bucket forever.
+
+# Sanity check: is there an Open edX platform on this server?
+if [ ! -d "/edx/app/edxapp/edx-platform/" ]; then
+  echo "Didn't find an Open edX platform on this server. Exiting"
+  exit
+fi
+
 
 #Check to see if a working folder exists. if not, create it.
 if [ ! -d ${WORKING_DIRECTORY} ]; then
@@ -47,22 +55,30 @@ fi
 
 cd ${WORKING_DIRECTORY}
 
-#Backup MySQL databases
-MYSQL_CONN="-uroot -p'{$MYSQL_PWD}'"
+# Begin Backup MySQL databases
+#------------------------------------------------------------------------------------------------------------------------
 echo "Backing up MySQL databases"
 echo "Reading MySQL database names..."
-mysql ${MYSQL_CONN} -ANe "SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN ('mysql','sys','information_schema','performance_schema')" > /tmp/db.txt
+mysql -uadmin -p"$MYSQL_PWD" -ANe "SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN ('mysql','sys','information_schema','performance_schema')" > /tmp/db.txt
 DBS="--databases $(cat /tmp/db.txt)"
 NOW="$(date +%Y%m%dT%H%M%S)"
 SQL_FILE="mysql-data-${NOW}.sql"
 echo "Dumping MySQL structures..."
-mysqldump ${MYSQL_CONN} --add-drop-database --no-data ${DBS} > ${SQL_FILE}
-echo "Dumping MySQL data..."
-# If there is table data you don't need, add --ignore-table=tablename
-mysqldump ${MYSQL_CONN} --no-create-info ${DBS} >> ${SQL_FILE}
+mysqldump -uroot -p"$MYSQL_PWD" --add-drop-database ${DBS} > ${SQL_FILE}
 echo "Done backing up MySQL"
 
-#Backup Mongo
+#Tarball our mysql backup file
+echo "Compressing MySQL backup into a single tarball archive"
+tar -czf ${BACKUPS_DIRECTORY}openedx-mysql-${NOW}.tgz ${SQL_FILE}
+sudo chown root ${BACKUPS_DIRECTORY}openedx-mysql-${NOW}.tgz
+sudo chgrp root ${BACKUPS_DIRECTORY}openedx-mysql-${NOW}.tgz
+echo "Created tarball of backup data openedx-mysql-${NOW}.tgz"
+# End Backup MySQL databases
+#------------------------------------------------------------------------------------------------------------------------
+
+
+# Begin Backup Mongo
+#------------------------------------------------------------------------------------------------------------------------
 echo "Backing up MongoDB"
 for db in edxapp cs_comment_service_development; do
     echo "Dumping Mongo db ${db}..."
@@ -72,10 +88,13 @@ echo "Done backing up MongoDB"
 
 #Tarball all of our backup files
 echo "Compressing backups into a single tarball archive"
-tar -czf ${BACKUPS_DIRECTORY}openedx-data-${NOW}.tgz ${SQL_FILE} mongo-dump-${NOW}
-sudo chown ubuntu ${BACKUPS_DIRECTORY}openedx-data-${NOW}.tgz
-sudo chgrp ubuntu ${BACKUPS_DIRECTORY}openedx-data-${NOW}.tgz
-echo "Created tarball of backup data openedx-data-${NOW}.tgz"
+tar -czf ${BACKUPS_DIRECTORY}openedx-mongo-${NOW}.tgz mongo-dump-${NOW}
+sudo chown root ${BACKUPS_DIRECTORY}openedx-mongo-${NOW}.tgz
+sudo chgrp root ${BACKUPS_DIRECTORY}openedx-mongo-${NOW}.tgz
+echo "Created tarball of backup data openedx-mongo-${NOW}.tgz"
+# End Backup Mongo
+#------------------------------------------------------------------------------------------------------------------------
+
 
 #Prune the Backups/ folder by eliminating all but the 30 most recent tarball files
 echo "Pruning the local backup folder archive"
@@ -89,5 +108,5 @@ echo "Cleaning up"
 sudo rm -r ${WORKING_DIRECTORY}
 
 echo "Sync backup to AWS S3 backup folder"
-/usr/local/bin/aws s3 sync ${BACKUPS_DIRECTORY} s3://${S3_BUCKET}
+/usr/local/bin/aws s3 sync ${BACKUPS_DIRECTORY} s3://${S3_BUCKET}/backups
 echo "Done!"
