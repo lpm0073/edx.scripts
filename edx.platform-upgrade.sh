@@ -3,7 +3,7 @@
 # McDaniel
 # April 2018
 #
-# Usage:     To upgrade an existing Native Open edX Ubuntu 16.04 64 bit Installation.
+# Usage:     To upgrade an existing Native Open edX Ubuntu 20.04 64 bit Installation.
 #            This upgrade is based on the original Native installation Ansible Playbook.
 #
 #            This script takes about an hour to run. I STRONGLY recommend that you monitor

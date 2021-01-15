@@ -3,7 +3,7 @@
 # April 2018
 #
 # Usage:     To run database migrations for LMS & CMS
-#            Native Open edX Ubuntu 16.04 64 bit Installation
+#            Native Open edX Ubuntu 20.04 64 bit Installation
 #
 # Reference: https://openedx.atlassian.net/wiki/spaces/OpenOPS/pages/60227913/Managing+OpenEdX+Tips+and+Tricks
 #---------------------------------------------------------

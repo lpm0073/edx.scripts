@@ -12,7 +12,7 @@
 # reference:  https://docs.tutor.overhang.io/quickstart.html
 #
 # Notes:
-#     AWS EC2 | t2-large | 50gb ebs | Ubuntu 16.04
+#     AWS EC2 | t2-large | 50gb ebs | Ubuntu 20.04
 #
 #     Add dns records before your run this script. All of your dns records
 #     should be 'A' records and should point to the same IP address.
