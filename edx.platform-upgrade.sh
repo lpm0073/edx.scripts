@@ -41,7 +41,7 @@ NOW="$(date +%Y%m%dT%H%M%S)"
 export OPENEDX_RELEASE=master
 
 # Step 1: Completely shut down all edX services
-sudo /edx/bin/supervisorctl stop edxapp:          # for edX platform prior to Ginkgo
+#sudo /edx/bin/supervisorctl stop edxapp:          # for edX platform prior to Ginkgo
 sudo /edx/bin/supervisorctl stop lms              # for Ginko and after
 sudo /edx/bin/supervisorctl stop lms              # for Ginkgo and after
 sudo /edx/bin/supervisorctl stop edxapp_worker:
@@ -53,8 +53,8 @@ sudo /edx/bin/supervisorctl stop ecommerce
 sudo /edx/bin/supervisorctl stop ecomworker
 sudo /edx/bin/supervisorctl stop forum
 sudo /edx/bin/supervisorctl stop insights
-sudo /edx/bin/supervisorctl stop notifier-celery-workers
-sudo /edx/bin/supervisorctl stop notifier-scheduler
+#sudo /edx/bin/supervisorctl stop notifier-celery-workers   # for edx platform prior to Koa
+#sudo /edx/bin/supervisorctl stop notifier-scheduler        # for edx platform prior to Koa
 sudo /edx/bin/supervisorctl stop xqueue
 sudo /edx/bin/supervisorctl stop xqueue_consumer
 
@@ -65,19 +65,9 @@ sudo /edx/bin/supervisorctl stop xqueue_consumer
 #         The backups of edxapp_env, venvs and nodeenvs are probably not really necesary.
 #         It is safe to delete these three backup folders at any time.
 
-echo "Backing up /edx/app/edxapp/edx-platform/"
-if [ -f /edx/app/edxapp/cms.auth.json ]; then
-  sudo cp /edx/app/edxapp/cms.auth.json /edx/app/edxapp/cms.auth.json-BACKUP-${NOW}
-fi
-if [ -f /edx/app/edxapp/cms.env.json ]; then
-  sudo cp /edx/app/edxapp/cms.env.json /edx/app/edxapp/cms.env.json-BACKUP-${NOW}
-fi
-if [ -f /edx/app/edxapp/lms.auth.json ]; then
-  sudo cp /edx/app/edxapp/lms.auth.json /edx/app/edxapp/lms.auth.json-BACKUP-${NOW}
-fi
-if [ -f /edx/app/edxapp/lms.env.json ]; then
-  sudo cp /edx/app/edxapp/lms.env.json /edx/app/edxapp/lms.env.json-BACKUP-${NOW}
-fi
+echo "Backing up current version"
+  sudo mkdir /edx/etc/BACKUP.${NOW}
+  sudo cp /edx/etc/*.yml /edx/etc/BACKUP.${NOW}/
 
 if [ -d /edx/app/edxapp/edx-platform/ ]; then
   sudo mv /edx/app/edxapp/edx-platform/ /edx/app/edxapp/edx-platform-BACKUP-${NOW}
