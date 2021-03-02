@@ -13,7 +13,8 @@
 #---------------------------------------------------------
 
 
-sudo /edx/bin/supervisorctl stop edxapp:
+sudo /edx/bin/supervisorctl stop lms
+sudo /edx/bin/supervisorctl stop cms
 sudo /edx/bin/supervisorctl stop edxapp_worker:
 
 sudo /edx/bin/supervisorctl stop analytics_api
@@ -23,7 +24,5 @@ sudo /edx/bin/supervisorctl stop ecommerce
 sudo /edx/bin/supervisorctl stop ecomworker
 sudo /edx/bin/supervisorctl stop forum
 sudo /edx/bin/supervisorctl stop insights
-sudo /edx/bin/supervisorctl stop notifier-celery-workers
-sudo /edx/bin/supervisorctl stop notifier-scheduler
 sudo /edx/bin/supervisorctl stop xqueue
 sudo /edx/bin/supervisorctl stop xqueue_consumer
