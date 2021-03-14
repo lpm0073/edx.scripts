@@ -1,3 +1,9 @@
+<p align="left">
+  <a href="https://lawrencemcdaniel.com" target="_blank"
+   <img src="https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg" alt="Hack.d Lawrence McDaniel">
+  </a>
+</p>
+
 <p align="center">
   <img src="https://github.com/lpm0073/edx.scripts/blob/master/img/open-edx-logo.png">
 </p>
