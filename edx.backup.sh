@@ -14,7 +14,7 @@
 #---------------------------------------------------------
 
 #------------------------------ SUPER IMPORTANT!!!!!!!! -- initialize these variables
-MYSQL_PWD="COMMON_MYSQL_ADMIN_PASS FROM my-passwords.yml"     #Add your MySQL admin password, if one is set. Otherwise set to a null string
+MYSQL_PWD="COMMON_MYSQL_ADMIN_PASS FROM my-passwords.yml"     #Add your MySQL root password, if one is set. Otherwise set to a null string
 MONGODB_PWD="MONGO_ADMIN_PASSWORD FROM my-passwords.yml"      #Add your MongoDB admin password from your my-passwords.yml file in the ubuntu home folder.
 
 S3_BUCKET="YOUR S3 BUCKET NAME"             # For this script to work you'll first need the following:
@@ -59,7 +59,7 @@ cd ${WORKING_DIRECTORY}
 #------------------------------------------------------------------------------------------------------------------------
 echo "Backing up MySQL databases"
 echo "Reading MySQL database names..."
-mysql -uadmin -p"$MYSQL_PWD" -ANe "SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN ('mysql','sys','information_schema','performance_schema')" > /tmp/db.txt
+mysql -uroot -p"$MYSQL_PWD" -ANe "SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN ('mysql','sys','information_schema','performance_schema')" > /tmp/db.txt
 DBS="--databases $(cat /tmp/db.txt)"
 NOW="$(date +%Y%m%dT%H%M%S)"
 SQL_FILE="mysql-data-${NOW}.sql"
