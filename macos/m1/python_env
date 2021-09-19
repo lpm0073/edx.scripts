@@ -1,0 +1,12 @@
+export LANG="en_US.UTF-8"                 
+export NO_PREREQ_INSTALL="1"                 
+export SKIP_WS_MIGRATIONS="1"                 
+export EDX_PLATFORM_SETTINGS="devstack"
+export CONFIG_ROOT="../" 
+export LMS_CFG="../edx/etc/lms.yml"                 
+export STUDIO_CFG="../edx/etc/studio.yml"                 
+export BOTO_CONFIG="../edx/.boto"                 
+export REVISION_CFG="/edx/etc/revisions.yml"
+
+alias ve='source python_env && source venv/bin/activate' 
+
